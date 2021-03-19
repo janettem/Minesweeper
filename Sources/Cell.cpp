@@ -1,11 +1,10 @@
 #include "Cell.h"
-#include <iostream>
 
 using namespace std;
 
 Cell::Cell() {
     setValue('0');
-    setState("covered");
+    setState(COVERED);
 }
 
 void Cell::setValue(char aValue) {
@@ -20,12 +19,12 @@ void Cell::setState(string aState) {
     if (isState(aState)) {
         state = aState;
     } else {
-        state = "covered";
+        state = COVERED;
     }
 }
 
 bool Cell::isValue(char aValue) {
-    if (aValue == '*' ||
+    if (aValue == MINE ||
     (aValue >= '0' && aValue <= '8')) {
         return true;
     }
@@ -33,9 +32,9 @@ bool Cell::isValue(char aValue) {
 }
 
 bool Cell::isState(string aState) {
-    if (aState == "covered" ||
-    aState == "uncovered" ||
-    aState == "flagged") {
+    if (aState == COVERED ||
+    aState == UNCOVERED ||
+    aState == FLAGGED) {
         return true;
     }
     return false;

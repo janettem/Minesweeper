@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+#define MINE '*'
+#define COVERED "covered"
+#define UNCOVERED "uncovered"
+#define FLAGGED "flagged"
+
 class Cell {
     public:
         Cell();

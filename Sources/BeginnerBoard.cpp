@@ -1,7 +1,6 @@
 #include "BeginnerBoard.h"
-#include <iostream>
 
 using namespace std;
 
-BeginnerBoard::BeginnerBoard() : Board::Board(9, 9, 10) {
+BeginnerBoard::BeginnerBoard() : CustomBoard::CustomBoard(9, 9, 10) {
 }

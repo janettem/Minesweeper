@@ -1,10 +1,9 @@
 #ifndef BEGINNER_BOARD_H
 #define BEGINNER_BOARD_H
 
-#include "Board.h"
-#include <iostream>
+#include "CustomBoard.h"
 
-class BeginnerBoard : public Board {
+class BeginnerBoard : public CustomBoard {
     public:
         BeginnerBoard();
 };
