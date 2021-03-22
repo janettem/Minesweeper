@@ -2,5 +2,5 @@
 
 using namespace std;
 
-BeginnerBoard::BeginnerBoard() : CustomBoard::CustomBoard(9, 9, 10) {
+BeginnerBoard::BeginnerBoard() : Board::Board(9, 9, 10) {
 }

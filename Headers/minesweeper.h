@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Point.h"
-#include "CustomBoard.h"
+#include "Board.h"
 #include "BeginnerBoard.h"
 #include "IntermediateBoard.h"
 #include "ExpertBoard.h"

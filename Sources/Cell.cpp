@@ -15,7 +15,7 @@ void Cell::setValue(char aValue) {
     }
 }
 
-void Cell::setState(string aState) {
+void Cell::setState(int aState) {
     if (isState(aState)) {
         state = aState;
     } else {
@@ -31,7 +31,7 @@ bool Cell::isValue(char aValue) {
     return false;
 }
 
-bool Cell::isState(string aState) {
+bool Cell::isState(int aState) {
     if (aState == COVERED ||
     aState == UNCOVERED ||
     aState == FLAGGED) {

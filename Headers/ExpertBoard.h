@@ -1,9 +1,9 @@
 #ifndef EXPERT_BOARD_H
 #define EXPERT_BOARD_H
 
-#include "CustomBoard.h"
+#include "Board.h"
 
-class ExpertBoard : public CustomBoard {
+class ExpertBoard : public Board {
     public:
         ExpertBoard();
 };

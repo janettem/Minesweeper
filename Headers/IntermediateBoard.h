@@ -1,9 +1,9 @@
 #ifndef INTERMEDIATE_BOARD_H
 #define INTERMEDIATE_BOARD_H
 
-#include "CustomBoard.h"
+#include "Board.h"
 
-class IntermediateBoard : public CustomBoard {
+class IntermediateBoard : public Board {
     public:
         IntermediateBoard();
 };

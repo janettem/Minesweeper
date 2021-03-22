@@ -4,22 +4,22 @@
 #include <iostream>
 
 #define MINE '*'
-#define COVERED "covered"
-#define UNCOVERED "uncovered"
-#define FLAGGED "flagged"
+#define COVERED 0
+#define UNCOVERED 1
+#define FLAGGED 2
 
 class Cell {
     public:
         Cell();
         void setValue(char aValue);
-        void setState(std::string aState);
+        void setState(int aState);
         char getValue() {return value;}
-        std::string getState() {return state;}
+        int getState() {return state;}
     private:
         char value;
-        std::string state;
+        int state;
         bool isValue(char aValue);
-        bool isState(std::string aState);
+        bool isState(int aState);
 };
 
 #endif // CELL_H

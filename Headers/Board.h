@@ -1,23 +1,23 @@
-#ifndef CUSTOM_BOARD_H
-#define CUSTOM_BOARD_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <stdlib.h>
 #include "Point.h"
 #include "Cell.h"
 
-class CustomBoard {
+class Board {
     public:
-        CustomBoard(int aWidth, int aHeight, int aMines);
+        Board(int aWidth, int aHeight, int aMines);
         void setWidth(int aWidth);
         void setHeight(int aHeight);
         void setMines(int aMines);
-        void putValuesOnBoard(Point firstUncoveredPoint);
         int getWidth() {return width;}
         int getHeight() {return height;}
         int getMines() {return mines;}
         Cell **getBoard() {return board;}
-        void uncoverAdjacentNonMinedPoints(Point uncoveredPoint);
-        bool isOnBoard(Point point);
+        void putValuesOnBoard(Point firstUncoveredPoint);
+        bool hasCoveredNonMinePoints();
+        void playTurn(Point point, int state);
         void printBoard();
     private:
         int width, height, mines;
@@ -26,7 +26,9 @@ class CustomBoard {
         void putMinesOnBoard(Point firstUncoveredPoint);
         void putAdjacentMinesCountsOnBoard();
         int countAdjacentMines(Point point);
+        void uncoverAdjacentNonMinePoints(Point uncoveredPoint);
+        bool isOnBoard(Point point);
         char digitToChar(int digit);
 };
 
-#endif // CUSTOM_BOARD_H
+#endif // BOARD_H
