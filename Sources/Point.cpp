@@ -3,8 +3,8 @@
 using namespace std;
 
 Point::Point() {
-    x = 0;
-    y = 0;
+    x = -1;
+    y = -1;
 }
 
 Point::Point(int aX, int aY) {

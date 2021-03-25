@@ -1,15 +1,12 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include <iostream>
-
-#define MINE '*'
-#define COVERED 0
-#define UNCOVERED 1
-#define FLAGGED 2
-
 class Cell {
     public:
+        const char mine = '*';
+        const int covered = 0;
+        const int uncovered = 1;
+        const int flagged = 2;
         Cell();
         void setValue(char aValue);
         void setState(int aState);

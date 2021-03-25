@@ -41,8 +41,8 @@ void Board::putValuesOnBoard(Point firstUncoveredPoint) {
 bool Board::hasCoveredNonMinePoints() {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (board[i][j].getState() == COVERED &&
-            board[i][j].getValue() != MINE) {
+            if (board[i][j].getState() == cell.covered &&
+            board[i][j].getValue() != cell.mine) {
                 return true;
             }
         }
@@ -52,20 +52,58 @@ bool Board::hasCoveredNonMinePoints() {
 
 void Board::playTurn(Point point, int state) {
     board[point.y][point.x].setState(state);
-    if (state == UNCOVERED && board[point.y][point.x].getValue() == '0') {
+    if (state == cell.uncovered && board[point.y][point.x].getValue() == '0') {
         uncoverAdjacentNonMinePoints(point);
     }
 }
 
-void Board::printBoard() {
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            if (board[i][j].getState() == UNCOVERED) {
-                cout << board[i][j].getValue();
-            } else if (board[i][j].getState() == COVERED) {
+bool Board::isOnBoard(Point point) {
+    if (point.y >= 0 && point.y < height &&
+    point.x >= 0 && point.x < width) {
+        return true;
+    }
+    return false;
+}
+
+void Board::printBoard(Point lastPoint) {
+    Point point;
+    for (point.y = 0; point.y < height; point.y++) {
+        for (point.x = 0; point.x < width; point.x++) {
+            if (lastPoint.cmp(point)) {
+                console.setColor(console.red);
+            }
+            if (board[point.y][point.x].getState() == cell.uncovered) {
+                cout << board[point.y][point.x].getValue();
+            } else if (board[point.y][point.x].getState() == cell.covered) {
                 cout << '.';
             } else {
                 cout << 'X';
+            }
+            if (lastPoint.cmp(point)) {
+                console.reset();
+            }
+        }
+        cout << endl;
+    }
+}
+
+void Board::printBoardMines(Point lastPoint) {
+    Point point;
+    for (point.y = 0; point.y < height; point.y++) {
+        for (point.x = 0; point.x < width; point.x++) {
+            if (lastPoint.cmp(point)) {
+                console.setColor(console.red);
+            }
+            if (board[point.y][point.x].getState() == cell.uncovered ||
+            board[point.y][point.x].getValue() == cell.mine) {
+                cout << board[point.y][point.x].getValue();
+            } else if (board[point.y][point.x].getState() == cell.covered) {
+                cout << '.';
+            } else {
+                cout << 'X';
+            }
+            if (lastPoint.cmp(point)) {
+                console.reset();
             }
         }
         cout << endl;
@@ -84,8 +122,8 @@ void Board::putMinesOnBoard(Point firstUncoveredPoint) {
     for (int i = 0; i < mines;) {
         index.randomize(0, width - 1, 0, height - 1);
         if (!index.cmp(firstUncoveredPoint) &&
-        board[index.y][index.x].getValue() != MINE) {
-            board[index.y][index.x].setValue(MINE);
+        board[index.y][index.x].getValue() != cell.mine) {
+            board[index.y][index.x].setValue(cell.mine);
             i++;
         }
     }
@@ -96,7 +134,7 @@ void Board::putAdjacentMinesCountsOnBoard() {
     Point point;
     for (point.y = 0; point.y < height; point.y++) {
         for (point.x = 0; point.x < width; point.x++) {
-            if (board[point.y][point.x].getValue() != MINE) {
+            if (board[point.y][point.x].getValue() != cell.mine) {
                 adjacentMines = countAdjacentMines(point);
                 board[point.y][point.x].setValue(digitToChar(adjacentMines));
             }
@@ -112,7 +150,7 @@ int Board::countAdjacentMines(Point point) {
         for (adjacentPoint.x = point.x - 1; adjacentPoint.x <= point.x + 1;
         adjacentPoint.x++) {
             if (isOnBoard(adjacentPoint) &&
-            board[adjacentPoint.y][adjacentPoint.x].getValue() == MINE) {
+            board[adjacentPoint.y][adjacentPoint.x].getValue() == cell.mine) {
                 adjacentMines++;
             }
         }
@@ -127,22 +165,14 @@ void Board::uncoverAdjacentNonMinePoints(Point uncoveredPoint) {
         for (adjacentPoint.x = uncoveredPoint.x - 1;
         adjacentPoint.x <= uncoveredPoint.x + 1; adjacentPoint.x++) {
             if (isOnBoard(adjacentPoint) &&
-            board[adjacentPoint.y][adjacentPoint.x].getState() == COVERED) {
-                board[adjacentPoint.y][adjacentPoint.x].setState(UNCOVERED);
+            board[adjacentPoint.y][adjacentPoint.x].getState() == cell.covered) {
+                board[adjacentPoint.y][adjacentPoint.x].setState(cell.uncovered);
                 if (board[adjacentPoint.y][adjacentPoint.x].getValue() == '0') {
                     uncoverAdjacentNonMinePoints(adjacentPoint);
                 }
             }
         }
     }
-}
-
-bool Board::isOnBoard(Point point) {
-    if (point.y >= 0 && point.y < height &&
-    point.x >= 0 && point.x < width) {
-        return true;
-    }
-    return false;
 }
 
 char Board::digitToChar(int digit) {

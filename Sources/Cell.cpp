@@ -4,7 +4,7 @@ using namespace std;
 
 Cell::Cell() {
     setValue('0');
-    setState(COVERED);
+    setState(covered);
 }
 
 void Cell::setValue(char aValue) {
@@ -19,22 +19,22 @@ void Cell::setState(int aState) {
     if (isState(aState)) {
         state = aState;
     } else {
-        state = COVERED;
+        state = covered;
     }
 }
 
-bool Cell::isValue(char aValue) {
-    if (aValue == MINE ||
-    (aValue >= '0' && aValue <= '8')) {
+bool Cell::isState(int aState) {
+    if (aState == covered ||
+    aState == uncovered ||
+    aState == flagged) {
         return true;
     }
     return false;
 }
 
-bool Cell::isState(int aState) {
-    if (aState == COVERED ||
-    aState == UNCOVERED ||
-    aState == FLAGGED) {
+bool Cell::isValue(char aValue) {
+    if (aValue == mine ||
+    (aValue >= '0' && aValue <= '8')) {
         return true;
     }
     return false;

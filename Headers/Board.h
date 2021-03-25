@@ -1,9 +1,10 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include <stdlib.h>
+#include <iostream>
 #include "Point.h"
 #include "Cell.h"
+#include "Console.h"
 
 class Board {
     public:
@@ -18,16 +19,19 @@ class Board {
         void putValuesOnBoard(Point firstUncoveredPoint);
         bool hasCoveredNonMinePoints();
         void playTurn(Point point, int state);
-        void printBoard();
+        bool isOnBoard(Point point);
+        void printBoard(Point lastPoint);
+        void printBoardMines(Point lastPoint);
     private:
         int width, height, mines;
         Cell **board;
+        Cell cell;
+        Console console;
         void setBoard();
         void putMinesOnBoard(Point firstUncoveredPoint);
         void putAdjacentMinesCountsOnBoard();
         int countAdjacentMines(Point point);
         void uncoverAdjacentNonMinePoints(Point uncoveredPoint);
-        bool isOnBoard(Point point);
         char digitToChar(int digit);
 };
 
