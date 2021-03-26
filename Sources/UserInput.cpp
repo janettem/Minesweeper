@@ -36,9 +36,11 @@ void UserInput::setPoint(Board board) {
 
 void UserInput::setPointX(int max) {
     bool validInput = false;
+    string input;
     while (!validInput) {
         cout << "X [1-" << max << "]: ";
-        cin >> point.x;
+        getline(cin, input);
+        point.x = strToInt(input);
         if (point.x >= 1 && point.x <= max) {
             validInput = true;
         } else {
@@ -50,9 +52,11 @@ void UserInput::setPointX(int max) {
 
 void UserInput::setPointY(int max) {
     bool validInput = false;
+    string input;
     while (!validInput) {
         cout << "Y [1-" << max << "]: ";
-        cin >> point.y;
+        getline(cin, input);
+        point.y = strToInt(input);
         if (point.y >= 1 && point.y <= max) {
             validInput = true;
         } else {
@@ -64,9 +68,11 @@ void UserInput::setPointY(int max) {
 
 void UserInput::setState(Cell **board) {
     bool validInput = false;
+    string input;
     while (!validInput) {
         cout << "1. uncover or 2. flag/unflag [1/2]: ";
-        cin >> state;
+        getline(cin, input);
+        state = strToInt(input);
         if (state == cell.uncovered || state == cell.flagged) {
             validInput = true;
         } else {
@@ -77,4 +83,29 @@ void UserInput::setState(Cell **board) {
     board[point.y][point.x].getState() == cell.flagged) {
         state = cell.covered;
     }
+}
+
+int UserInput::strToInt(string str) {
+    long long num;
+    int len = str.length();
+    if (len <= intMaxLen && isNum(str, len)) {
+        num = stoll(str);
+        if (num >= INT_MIN && num <= INT_MAX) {
+            return num;
+        }
+    }
+    return 0;
+}
+
+bool UserInput::isNum(string str, int len) {
+    int i = 0;
+    if (str[i] == '+' || str[i] == '-') {
+        i++;
+    }
+    for (; i < len; i++) {
+        if (!isdigit(str[i])) {
+            return false;
+        }
+    }
+    return true;
 }
