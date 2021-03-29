@@ -4,11 +4,16 @@ using namespace std;
 
 int main() {
     srand(time(NULL));
-    Board board(9, 9, 10);
+    UserInput userInput;
+    Board board(userInput.getWidth(), userInput.getHeight(),
+    userInput.getMines());
     Cell cell;
     Console console;
-    UserInput userInput;
     bool firstUncoveredPoint = true;
+    console.clearLine(1);
+    if (userInput.getLevel() == userInput.custom) {
+        console.clearLine(3);
+    }
     while ((firstUncoveredPoint || (userInput.getState() != cell.uncovered ||
     board.getBoard()[userInput.getPoint().y][userInput.getPoint().x].getValue() != cell.mine) &&
     board.hasCoveredNonMinePoints())) {

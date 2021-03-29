@@ -2,9 +2,13 @@
 
 using namespace std;
 
+void Console::clear() {
+    cout << strClear << strCursorHome;
+}
+
 void Console::clearLine(int n) {
     for (int i = 0; i < n; i++) {
-        cout << strCursorUp << strClearLine << "\r";
+        cout << strCursorUp << strClearLine;
     }
 }
 

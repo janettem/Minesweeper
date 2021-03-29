@@ -6,8 +6,10 @@
 
 class Console {
     public:
-        const std::string strCursorUp = "\033[A";
+        const std::string strClear = "\033[2J";
         const std::string strClearLine = "\033[2K";
+        const std::string strCursorHome = "\033[H";
+        const std::string strCursorUp = "\033[A";
         const std::string strReset = "\033[0m";
         const int black = 30;
         const int red = 31;
@@ -17,6 +19,7 @@ class Console {
         const int magenta = 35;
         const int cyan = 36;
         const int white = 37;
+        void clear();
         void clearLine(int n);
         void setColor(int color);
         void reset();

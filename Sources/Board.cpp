@@ -10,26 +10,26 @@ Board::Board(int aWidth, int aHeight, int aMines) {
 }
 
 void Board::setWidth(int aWidth) {
-    if (aWidth >= 1) {
+    if (aWidth >= 8 && aWidth <= 99) {
         width = aWidth;
     } else {
-        width = 1;
+        width = 9;
     }
 }
 
 void Board::setHeight(int aHeight) {
-    if (aHeight >= 1) {
+    if (aHeight >= 1 && aHeight <= 99) {
         height = aHeight;
     } else {
-        height = 1;
+        height = 9;
     }
 }
 
 void Board::setMines(int aMines) {
-    if (aMines >= 0 && aMines <= width * height) {
+    if (aMines >= 0 && aMines < width * height) {
         mines = aMines;
     } else {
-        mines = 0;
+        mines = 10;
     }
 }
 

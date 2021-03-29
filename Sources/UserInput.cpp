@@ -4,6 +4,7 @@ using namespace std;
 
 UserInput::UserInput() {
     state = 0;
+    setBoard();
 }
 
 void UserInput::setUserInput(Board board) {
@@ -17,6 +18,87 @@ void UserInput::setUserInput(Board board) {
             uncoverFlaggedPoint = false;
         } else {
             console.clearLine(3);
+        }
+    }
+}
+
+void UserInput::setBoard() {
+    bool validInput = false;
+    string input;
+    while (!validInput) {
+        cout << "1. beginner, 2. intermediate, 3. expert or 4. custom [1-4]: ";
+        getline(cin, input);
+        level = strToInt(input) - 1;
+        if (isLevel(level)) {
+            validInput = true;
+        } else {
+            console.clearLine(1);
+        }
+    }
+    if (level == beginner) {
+        setLevel(9, 9, 10);
+    } else if (level == intermediate) {
+        setLevel(16, 16, 40);
+    } else if (level == expert) {
+        setLevel(30, 16, 99);
+    } else {
+        setCustomLevel();
+    }
+}
+
+void UserInput::setLevel(int aWidth, int aHeight, int aMines) {
+    width = aWidth;
+    height = aHeight;
+    mines = aMines;
+}
+
+void UserInput::setCustomLevel() {
+    setWidth();
+    setHeight();
+    setMines(width * height - 1);
+}
+
+void UserInput::setWidth() {
+    bool validInput = false;
+    string input;
+    while (!validInput) {
+        cout << "Width [8-99]: ";
+        getline(cin, input);
+        width = strToInt(input);
+        if (width >= 8 && width <= 99) {
+            validInput = true;
+        } else {
+            console.clearLine(1);
+        }
+    }
+}
+
+void UserInput::setHeight() {
+    bool validInput = false;
+    string input;
+    while (!validInput) {
+        cout << "Height [1-99]: ";
+        getline(cin, input);
+        height = strToInt(input);
+        if (height >= 1 && height <= 99) {
+            validInput = true;
+        } else {
+            console.clearLine(1);
+        }
+    }
+}
+
+void UserInput::setMines(int max) {
+    bool validInput = false;
+    string input;
+    while (!validInput) {
+        cout << "Mines [0-" << max << "]: ";
+        getline(cin, input);
+        mines = strToInt(input);
+        if (mines >= 0 && mines <= max) {
+            validInput = true;
+        } else {
+            console.clearLine(1);
         }
     }
 }
@@ -83,6 +165,16 @@ void UserInput::setState(Cell **board) {
     board[point.y][point.x].getState() == cell.flagged) {
         state = cell.covered;
     }
+}
+
+bool UserInput::isLevel(int level) {
+    if (level == beginner ||
+    level == intermediate ||
+    level == expert ||
+    level == custom) {
+        return true;
+    }
+    return false;
 }
 
 int UserInput::strToInt(string str) {
