@@ -92,10 +92,10 @@ void UserInput::setMines(int max) {
     bool validInput = false;
     string input;
     while (!validInput) {
-        cout << "Mines [0-" << max << "]: ";
+        cout << "Mines [1-" << max << "]: ";
         getline(cin, input);
         mines = strToInt(input);
-        if (mines >= 0 && mines <= max) {
+        if (mines >= 1 && mines <= max) {
             validInput = true;
         } else {
             console.clearLine(1);
@@ -180,7 +180,7 @@ bool UserInput::isLevel(int level) {
 int UserInput::strToInt(string str) {
     long long num;
     int len = str.length();
-    if (len <= intMaxLen && isNum(str, len)) {
+    if (len >= 1 && len <= intMaxLen && isNum(str, len)) {
         num = stoll(str);
         if (num >= INT_MIN && num <= INT_MAX) {
             return num;

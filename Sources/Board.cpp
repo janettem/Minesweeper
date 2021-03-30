@@ -26,7 +26,7 @@ void Board::setHeight(int aHeight) {
 }
 
 void Board::setMines(int aMines) {
-    if (aMines >= 0 && aMines < width * height) {
+    if (aMines >= 1 && aMines < width * height) {
         mines = aMines;
     } else {
         mines = 10;
